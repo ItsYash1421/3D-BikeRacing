@@ -14,7 +14,6 @@
 </head>
 
 <body>
-    <!-- Loading Screen -->
     <div id="loading-screen" class="screen">
         <div class="loading-content">
             <h1 class="loading-title">BIKE RACING</h1>
@@ -23,7 +22,6 @@
         </div>
     </div>
 
-    <!-- Start Screen -->
     <div id="start-screen" class="screen hidden">
         <div class="menu-content">
             <div class="logo-header">
@@ -59,7 +57,6 @@
         </div>
     </div>
 
-    <!-- Bike Selection Screen -->
     <div id="bike-selection-screen" class="screen hidden">
         <div class="menu-content">
             <div class="logo-header">
@@ -113,7 +110,6 @@
         </div>
     </div>
 
-    <!-- Mode Selection Screen -->
     <div id="mode-selection-screen" class="screen hidden">
         <div class="menu-content">
             <div class="logo-header">
@@ -134,45 +130,37 @@
         </div>
     </div>
 
-    <!-- Game Screen -->
     <div id="game-screen" class="screen hidden">
         <canvas id="game-canvas"></canvas>
 
-        <!-- Game HUD -->
         <div class="hud">
             <div class="hud-top">
-                <!-- Speed -->
                 <div class="hud-item speed-display">
                     <div class="hud-label">SPEED</div>
                     <div class="hud-value" id="speed-value">0</div>
                     <div class="hud-unit">KM/H</div>
                 </div>
 
-                <!-- Distance -->
                 <div class="hud-item distance-display">
                     <div class="hud-label">DISTANCE</div>
                     <div class="hud-value" id="distance-value">0</div>
                     <div class="hud-unit">M</div>
                 </div>
 
-                <!-- Timer (2-min mode only) -->
                 <div class="hud-item timer-display hidden" id="timer-display">
                     <div class="hud-label">TIME</div>
                     <div class="hud-value" id="timer-value">2:00</div>
                 </div>
             </div>
 
-            <!-- Hand Status -->
             <div class="hud-bottom">
                 <div id="hand-status" class="hand-status">DETECTING HANDS...</div>
             </div>
         </div>
 
-        <!-- Hand Tracking Canvas -->
         <canvas id="hand-canvas" class="hand-canvas"></canvas>
     </div>
 
-    <!-- Game Over Screen -->
     <div id="gameover-screen" class="screen hidden">
         <div class="menu-content">
             <h1 class="game-title game-over-title">RIDE COMPLETE</h1>
@@ -201,20 +189,17 @@
             <div id="leaderboard-section" class="leaderboard-section">
                 <h2 class="section-title">TOP RIDERS</h2>
                 <div id="leaderboard-list" class="leaderboard-list">
-                    <!-- Populated dynamically -->
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Mobile Warning -->
     <div class="mobile-warning">
         <div class="mobile-warning-icon">⚠</div>
         <h1>DESKTOP REQUIRED</h1>
         <p>This game requires a desktop or laptop with a webcam for hand tracking. Mobile devices are not supported.</p>
     </div>
 
-    <!-- Video for Hand Tracking (Hidden) -->
     <video id="video" class="input-video" playsinline></video>
 
     <script type="module" src="/src/main.js"></script>
