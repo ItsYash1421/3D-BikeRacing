@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Bike Racing | Hand Gesture Control</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="screen">
+        <div class="loading-content">
+            <h1 class="loading-title">BIKE RACING</h1>
+            <div class="loading-spinner"></div>
+            <p id="loading-text" class="loading-text">INITIALIZING...</p>
+        </div>
+    </div>
+
+    <!-- Start Screen -->
+    <div id="start-screen" class="screen hidden">
+        <div class="menu-content">
+            <div class="logo-header">
+                <h1 class="game-title">BIKE RACING</h1>
+                <div class="title-underline"></div>
+                <p class="game-subtitle">HAND GESTURE CONTROLLED</p>
+            </div>
+
+            <div class="instructions">
+                <h2 class="section-title">CONTROLS</h2>
+                <div class="instruction-list">
+                    <div class="instruction-item">
+                        <span class="step-number">1</span>
+                        <span>BOTH FISTS OPEN = ACCELERATE</span>
+                    </div>
+                    <div class="instruction-item">
+                        <span class="step-number">2</span>
+                        <span>ANY FIST CLOSED = BRAKE</span>
+                    </div>
+                    <div class="instruction-item">
+                        <span class="step-number">3</span>
+                        <span>TILT HANDS = CHANGE LANE (or Arrow Keys)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="player-input">
+                <label class="input-label" for="player-name">RIDER NAME</label>
+                <input type="text" id="player-name" placeholder="ENTER NAME" maxlength="15">
+            </div>
+
+            <button id="start-button" class="game-button primary">SELECT BIKE</button>
+        </div>
+    </div>
+
+    <!-- Bike Selection Screen -->
+    <div id="bike-selection-screen" class="screen hidden">
+        <div class="menu-content">
+            <div class="logo-header">
+                <h1 class="game-title">SELECT YOUR BIKE</h1>
+                <div class="title-underline"></div>
+            </div>
+
+            <div class="bike-grid">
+                <button class="bike-card" data-bike="ninja-h2">
+                    <div class="bike-name">Kawasaki Ninja H2</div>
+                    <div class="bike-stats">
+                        <span>Max: 150 km/h</span>
+                        <span>Accel: ⚡⚡⚡⚡⚡</span>
+                    </div>
+                </button>
+
+                <button class="bike-card" data-bike="classic-650">
+                    <div class="bike-name">Royal Enfield Classic 650</div>
+                    <div class="bike-stats">
+                        <span>Max: 135 km/h</span>
+                        <span>Accel: ⚡⚡⚡</span>
+                    </div>
+                </button>
+
+                <button class="bike-card" data-bike="gt-650">
+                    <div class="bike-name">Royal Enfield GT 650</div>
+                    <div class="bike-stats">
+                        <span>Max: 140 km/h</span>
+                        <span>Accel: ⚡⚡⚡⚡</span>
+                    </div>
+                </button>
+
+                <button class="bike-card" data-bike="apache-rr310">
+                    <div class="bike-name">TVS Apache RR 310</div>
+                    <div class="bike-stats">
+                        <span>Max: 145 km/h</span>
+                        <span>Accel: ⚡⚡⚡⚡</span>
+                    </div>
+                </button>
+
+                <button class="bike-card" data-bike="bmw-s1000rr">
+                    <div class="bike-name">BMW S1000 RR</div>
+                    <div class="bike-stats">
+                        <span>Max: 150 km/h</span>
+                        <span>Accel: ⚡⚡⚡⚡⚡</span>
+                    </div>
+                </button>
+            </div>
+
+            <button id="bike-back-button" class="game-button secondary">BACK</button>
+        </div>
+    </div>
+
+    <!-- Mode Selection Screen -->
+    <div id="mode-selection-screen" class="screen hidden">
+        <div class="menu-content">
+            <div class="logo-header">
+                <h1 class="game-title">SELECT MODE</h1>
+                <div class="title-underline"></div>
+            </div>
+
+            <div class="mode-selection">
+                <button id="mode-endless" class="game-button primary">
+                    ENDLESS RIDE
+                </button>
+                <button id="mode-timed" class="game-button primary">
+                    2 MINUTE CHALLENGE
+                </button>
+            </div>
+
+            <button id="mode-back-button" class="game-button secondary">BACK</button>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen hidden">
+        <canvas id="game-canvas"></canvas>
+
+        <!-- Game HUD -->
+        <div class="hud">
+            <div class="hud-top">
+                <!-- Speed -->
+                <div class="hud-item speed-display">
+                    <div class="hud-label">SPEED</div>
+                    <div class="hud-value" id="speed-value">0</div>
+                    <div class="hud-unit">KM/H</div>
+                </div>
+
+                <!-- Distance -->
+                <div class="hud-item distance-display">
+                    <div class="hud-label">DISTANCE</div>
+                    <div class="hud-value" id="distance-value">0</div>
+                    <div class="hud-unit">M</div>
+                </div>
+
+                <!-- Timer (2-min mode only) -->
+                <div class="hud-item timer-display hidden" id="timer-display">
+                    <div class="hud-label">TIME</div>
+                    <div class="hud-value" id="timer-value">2:00</div>
+                </div>
+            </div>
+
+            <!-- Hand Status -->
+            <div class="hud-bottom">
+                <div id="hand-status" class="hand-status">DETECTING HANDS...</div>
+            </div>
+        </div>
+
+        <!-- Hand Tracking Canvas -->
+        <canvas id="hand-canvas" class="hand-canvas"></canvas>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="gameover-screen" class="screen hidden">
+        <div class="menu-content">
+            <h1 class="game-title game-over-title">RIDE COMPLETE</h1>
+            <div class="title-underline"></div>
+
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-label">DISTANCE</div>
+                    <div class="stat-value" id="final-distance">0 M</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">MAX SPEED</div>
+                    <div class="stat-value" id="final-max-speed">0 KM/H</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">TIME</div>
+                    <div class="stat-value" id="final-time">0:00</div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button id="retry-button" class="game-button primary">RIDE AGAIN</button>
+                <button id="menu-button" class="game-button secondary">MAIN MENU</button>
+            </div>
+
+            <div id="leaderboard-section" class="leaderboard-section">
+                <h2 class="section-title">TOP RIDERS</h2>
+                <div id="leaderboard-list" class="leaderboard-list">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Warning -->
+    <div class="mobile-warning">
+        <div class="mobile-warning-icon">⚠</div>
+        <h1>DESKTOP REQUIRED</h1>
+        <p>This game requires a desktop or laptop with a webcam for hand tracking. Mobile devices are not supported.</p>
+    </div>
+
+    <!-- Video for Hand Tracking (Hidden) -->
+    <video id="video" class="input-video" playsinline></video>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
